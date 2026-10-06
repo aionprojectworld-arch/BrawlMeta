@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brawl Tips — Советы по Brawl Stars</title>
+    <style>
+        :root {
+            --bs-gold: #FFD700;
+            --bs-purple: #8A2BE2;
+            --bs-bg: #1a1a1d;
+            --bs-card: #2d2d30;
+            --text: #ffffff;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bs-bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            background: linear-gradient(45deg, var(--bs-purple), #FF4500);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        h1 { margin: 0; font-size: 2.5rem; text-transform: uppercase; letter-spacing: 3px; }
+        p.subtitle { color: rgba(255,255,255,0.8); margin-top: 10px; }
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .filter-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        button.filter-btn {
+            background: var(--bs-card);
+            color: white;
+            border: 2px solid var(--bs-gold);
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+        button.filter-btn:hover, button.filter-btn.active {
+            background: var(--bs-gold);
+            color: #000;
+            transform: translateY(-2px);
+        }
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .tip-card {
+            background: var(--bs-card);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 5px solid var(--bs-purple);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+            display: none; /* Скрываем все по умолчанию */
+        }
+        .tip-card.visible {
+            display: block; /* Показываем только нужные */
+        }
+        .tip-card:hover { transform: scale(1.02); }
+        .tip-number {
+            display: inline-block;
+            background: var(--bs-purple);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-right: 8px;
+            font-size: 0.9rem;
+        }
+        .tip-category {
+            font-size: 0.85rem;
+            color: var(--bs-gold);
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            color: rgba(255,255,255,0.5);
+            border-top: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Brawl Tips</h1>
+    <p class="subtitle">50 проверенных советов для победы в Brawl Stars</p>
+</header>
+
+<div class="container">
+    <div class="filter-controls">
+        <button class="filter-btn active" onclick="filterTips('all')">Все</button>
+        <button class="filter-btn" onclick="filterTips('beginner')">Для новичков</button>
+        <button class="filter-btn" onclick="filterTips('advanced')">Для профи</button>
+        <button class="filter-btn" onclick="filterTips('gamemode')">По режимам</button>
+    </div>
+
+    <div class="tips-grid" id="tipsContainer">
+        <!-- Карточки советов (HTML вместо JS шаблонов) -->
+        <div class="tip-card visible" data-category="beginner">
+            <span class="tip-category">Новичок</span>
+            <span class="tip-number">#1</span>
+            <p>Всегда следите за мини-картой — это ключ к пониманию, где находятся враги и где безопасно собирать ресурсы.</p>
+        </div>
+        <div class="tip-card visible" data-category="beginner">
+            <span class="tip-category">Новичок</span>
+            <span class="tip-number">#2</span>
+            <p>Не стойте на месте. Постоянное движение делает вас сложной целью для снайперов и метателей.</p>
+        </div>
+        <div class="tip-card visible" data-category="beginner">
+            <span class="tip-category">Новичок</span>
+            <span class="tip-number">#3</span>
+            <p>Изучите способности каждого бойца. Знание ульты врага поможет вам избежать смертельного удара.</p>
+        </div>
+        <div class="tip-card visible" data-category="beginner">
+            <span class="tip-category">Новичок</span>
+            <span class="tip-number">#4</span>
+            <p>Используйте кусты для засады. Многие бойцы имеют бонусы к урону из кустов или невидимость.</p>
+        </div>
+        <div class="tip-card visible" data-category="beginner">
+            <span class="tip-category">Новичок</span>
+            <span class="tip-number">#5</span>
+            <p>Не тратьте ульту впустую. Сохраняйте суперспособность для решающего момента или побега.</p>
+        </div>
+        <div class="tip-card visible" data-category="gamemode">
+            <span class="tip-category">Режим</span>
+            <span class="tip-number">#6</span>
+            <p>В режиме 'Захват кристаллов' приоритет — сбор кристаллов, а не убийство врагов. Даже если вы сильны, команда проиграет без кристаллов.</p>
+        </div>
+        <div class="tip-card visible" data-category="gamemode">
+            <span class="tip-category">Режим</span>
+            <span class="tip-number">#7</span>
+            <p>В 'Столкновении' избегайте центра карты в начале матча. Там чаще всего происходят первые стычки с высоким риском проигрыша.</p>
+        </div>
+        <div class="tip-card visible" data-category="gamemode">
+            <span class="tip-category">Режим</span>
+            <span class="tip-number">#8</span>
+            <p>В 'Броулболе' используйте стены для рикошета мяча, если прямой проход заблокирован противником.</p>
+        </div>
+        <div class="tip-card visible" data-category="gamemode">
+            <span class="tip-category">Режим</span>
+            <span class="tip-number">#9</span>
+            <p>В 'Ограблении сейфа' атакуйте сейф только тогда, когда у вас есть преимущество в количестве бойцов или здоровье.</p>
+        </div>
+        <div class="tip-card visible" data-category="gamemode">
+            <span class="tip-category">Режим</span>
+            <span class="tip-number">#10</span>
+            <p>В 'Награде за поимку' старайтесь держаться рядом с союзниками, чтобы не стать легкой одиночной целью.</p>
+        </div>
+        <div class="tip-card visible" data-category="advanced">
+            <span class="tip-category">Профи</span>
+            <span class="tip-number">#11</span>
+            <p>Заряжайте ульту постепенно. Небольшие удары по врагам накапливают заряд быстрее, чем ожидание идеального момента.</p>
+        </div>
+        <div class="tip-card visible" data-category="advanced">
+            <span class="tip-category">Профи</span>
+            <span class="tip-number">#12</span>
+            <p>Используйте препятствия для блокировки атак. Даже маленький ящик может спасти от смертельного выстрела.</p>
+        </div>
+        <div class="tip-card visible" data-category="advanced">
+            <span class="tip-category">Профи</span>
+            <span class="tip-number">#13</span>
+            <p>Контролируйте углы. Перед тем как зайти за угол, сделайте быстрый рывок, чтобы проверить, нет ли там врага.</p>
+        </div>
+        <div class="tip-card visible" data-category="advanced">
+            <span class="tip-category">Профи</span>
+            <span class="tip-number">#14</span>
+            <p>В командных режимах координируйте ульты. Одновременное использование суперов может переломить ход матча.</p>
+        </div>
+        <div class="tip-card visible" data-category="advanced">
+            <span class="tip-category">Профи</span>
+            <span class="tip-number">#15</span>
+            <p>Анализируйте ошибки после каждого поражения. Что пошло не так: позиционирование, выбор бойца или тайминги?</p>
+        </div>
+        <div class="tip-card visible" data-category="beginner">
+            <span class="tip-category">Новичок</span>
+            <span class="tip-number">#16</span>
+            <p>Выбирайте бойцов под карту. На открытых картах хороши снайперы, в узких проходах — танки и убийцы.</p>
+        </div>
+        <div class="tip-card visible" data-category="beginner">
+            <span class="tip-category">Новичок</span>
+            <span class="tip-number">#17</span>
+            <p>Не игнорируйте гаджеты и звездные силы. Они могут кардинально изменить стиль игры бойца.</p>
+        </div>
+        <div class="tip-card visible" data-category="beginner">
+            <span class="tip-category">Новичок</span>
+            <span class="tip-number">#18</span>
+            <p>В начале матча быстро осмотрите ближайшие ящики. Бонусы могут дать преимущество в первых стычках.</p>
+        </div>
+        <div class="tip-card visible" data-category="beginner">
+            <span class="tip-category">Новичок</span>
+            <span class="tip-number">#19</span>
+            <p>Если у вас мало здоровья, не рискуйте. Отступите к союзникам или в кусты для восстановления.</p>
+        </div>
+        <div class="tip-card visible" data-category="beginner">
+            <span class="tip-category">Новичок</span>
+            <span class="tip-number">#20</span>
+            <p>В командных режимах помогайте союзникам, даже если это не приносит вам личной славы. Победа команды важнее.</p>
+        </div>
+        <div class="tip-card visible" data-category="gamemode">
+            <span class="tip-category">Режим</span>
+            <span class="tip-number">#21</span>
+            <p>В 'Столкновении' собирайте усилители, но не рискуйте жизнью ради одного кубика, если рядом враг.</p>
+        </div>
+        <div class="tip-card visible" data-category="gamemode">
+            <span class="tip-category">Режим</span>
+            <span class="tip-number">#22</span>
+            <p>В 'Захвате кристаллов' используйте бойцов с контролем (оглушение, замедление) для защиты своей базы.</p>
+        </div>
+        <div class="tip-card visible" data-category="gamemode">
+            <span class="tip-category">Режим</span>
+            <span class="tip-number">#23</span>
+            <p>В 'Броулболе' если вы потеряли мяч, сразу переключайтесь на защиту, чтобы не дать противнику забить гол.</p>
+        </div>
+        <div class="tip-card visible" data-category="gamemode">
+            <span class="tip-category">Режим</span>
+            <span class="tip-number">#24</span>
+            <p>В 'Ограблении сейфа' используйте бойцов с дальним уроном для атаки сейфа с безопасного расстояния.</p>
+        </div>
+        <div class="tip-card visible" data-category="gamemode">
+            <span class="tip-category">Режим</span>
+            <span class="tip-number">#25</span>
+            <p>В 'Награде за поимку' старайтесь не попадать под перекрестный огонь. Держитесь ближе к укрытиям.</p>
+        </div>
+        <div class="tip-card visible" data-category="advanced">
+            <span class="tip-category">Профи</span>
+            <span class="tip-number">#26</span>
+            <p>Изучите паттерны атак каждого бойца. Это поможет вам предугадывать движения врагов и уклоняться от атак.</p>
+        </div>
+        <div class="tip-card visible" data-category="advanced">
+            <span class="tip-category">Профи</span>
+            <span class="tip-number">#27</span>
+            <p>Используйте рельеф карты. Высокие стены могут блокировать атаки, а низкие — служить временным укрытием.</p>
+        </div>
+        <div class="tip-card visible" data-category="advanced">
+            <span class="tip-category">Профи</span>
+            <span class="tip-number">#28</span>
+            <p>В командных боях старайтесь не разделяться. Группа из 2-3 бойцов сильнее, чем одиночки.</p>
+        </div>
+        <div class="tip-card visible" data-category="advanced">
+            <span class="tip-category">Профи</span>
+            <span class="tip-number">#29</span>
+            <p>Не бойтесь отступать. Иногда лучший способ победить — это выжить и дождаться ошибки врага.</p>
+        </div>
+        <div class="tip-card visible" data-category="advanced">
+            <span class="tip-category">Профи</span>
+            <span class="tip-number">#30</span>
+            <p>Практикуйте прицеливание. Точность стрельбы важнее, чем просто нажатие кнопки атаки.</p>
+        </div>
+        <div class="tip-card visible" data-category="beginner">
+            <span class="tip-category">Новичок</span>
+            <span class="tip-number">#31</span>
+            <p>В начале матча не спешите в центр. Осмотритесь, оцените позиции врагов и выберите безопасную траекторию.</p>
+        </div>
+        <div class="tip-card visible" data-category="beginner">
+            <span class="tip-category">Новичок</span>
+            <span class="tip-number">#32</span>
+            <p>Используйте кусты не только для скрытности, но и для заманивания врагов в ловушку.</p>
+        </div>
+        <div class="tip-card visible" data-category="beginner">
+            <span class="tip-category">Новичок</span>
+            <span class="tip-number">#33</span>
+            <p>Не тратьте все ресурсы на одного врага. Если бой идет не в вашу пользу, лучше отступить и найти более легкую цель.</p>
+        </div>
+        <div class="tip-card visible" data-category="beginner">
+            <span class="tip-category">Новичок</span>
+            <span class="tip-number">#34</span>
+            <p>В командных режимах общайтесь с союзниками. Даже простые сигналы могут спасти жизнь и выиграть матч.</p>
+        </div>
+        <div class="tip-card visible" data-category="beginner">
+            <span class="tip-category">Новичок</span>
+            <span class="tip-number">#35</span>
+            <p>Не забывайте про аптечки и бонусы. Они могут стать решающим фактором в напряженном бою.</p>
+        </div>
+        <div class="tip-card visible" data-category="gamemode">
+            <span class="tip-category">Режим</span>
+            <span class="tip-number">#36</span>
+            <p>В 'Столкновении' старайтесь не попадать в окружение. Если враги окружают вас, используйте ульту для побега.</p>
+        </div>
+        <div class="tip-card visible" data-category="gamemode">
+            <span class="tip-category">Режим</span>
+            <span class="tip-number">#37</span>
+            <p>В 'Захвате кристаллов' не пытайтесь забрать все кристаллы в одиночку. Работайте в команде и прикрывайте друг друга.</p>
+        </div>
+        <div class="tip-card visible" data-category="gamemode">
+            <span class="tip-category">Режим</span>
+            <span class="tip-number">#38</span>
+            <p>В 'Броулболе' используйте бойцов с контролем для блокировки противников и создания пространства для атаки.</p>
+        </div>
+        <div class="tip-card visible" data-category="gamemode">
+            <span class="tip-category">Режим</span>
+            <span class="tip-number">#39</span>
+            <p>В 'Ограблении сейфа' не стойте на месте во время атаки сейфа. Двигайтесь и уклоняйтесь от атак врагов.</p>
+        </div>
+        <div class="tip-card visible" data-category="gamemode">
+            <span class="tip-category">Режим</span>
+            <span class="tip-number">#40</span>
+            <p>В 'Награде за поимку' старайтесь не попадать под перекрестный огонь. Держитесь ближе к укрытиям и союзникам.</p>
+        </div>
+        <div class="tip-card visible" data-category="advanced">
+            <span class="tip-category">Профи</span>
+            <span class="tip-number">#41</span>
+            <p>Изучите слабые места каждого бойца. Знание уязвимостей поможет вам эффективнее противостоять врагам.</p>
+        </div>
+        <div class="tip-card visible" data-category="advanced">
+            <span class="tip-category">Профи</span>
+            <span class="tip-number">#42</span>
+            <p>Используйте препятствия для создания ловушек. Заманивайте врагов в узкие проходы и атакуйте из засады.</p>
+        </div>
+        <div class="tip-card visible" data-category="advanced">
+            <span class="tip-category">Профи</span>
+            <span class="tip-number">#43</span>
+            <p>В командных боях старайтесь не разделяться. Группа из 2-3 бойцов сильнее, чем одиночки.</p>
+        </div>
+        <div class="tip-card visible" data-category="advanced">
+            <span class="tip-category">Профи</span>
+            <span class="tip-number">#44</span>
+            <p>Не бойтесь отступать. Иногда лучший способ победить — это выжить и дождаться ошибки врага.</p>
+        </div>
+        <div class="tip-card visible" data-category="advanced">
+            <span class="tip-category">Профи</span>
+            <span class="tip-number">#45</span>
+            <p>Практикуйте прицеливание. Точность стрельбы важнее, чем просто нажатие кнопки атаки.</p>
+        </div>
+        <div class="tip-card visible" data-category="beginner">
+            <span class="tip-category">Новичок</span>
+            <span class="tip-number">#46</span>
+            <p>В начале матча не спешите в центр. Осмотритесь, оцените позиции врагов и выберите безопасную траекторию.</p>
+        </div>
+        <div class="tip-card visible" data-category="beginner">
+            <span class="tip-category">Новичок</span>
+            <span class="tip-number">#47</span>
+            <p>Используйте кусты не только для скрытности, но и для заманивания врагов в ловушку.</p>
+        </div>
+        <div class="tip-card visible" data-category="beginner">
+            <span class="tip-category">Новичок</span>
+            <span class="tip-number">#48</span>
+            <p>Не тратьте все ресурсы на одного врага. Если бой идет не в вашу пользу, лучше отступить и найти более легкую цель.</p>
+        </div>
+        <div class="tip-card visible" data-category="beginner">
+            <span class="tip-category">Новичок</span>
+            <span class="tip-number">#49</span>
+            <p>В командных режимах общайтесь с союзниками. Даже простые сигналы могут спасти жизнь и выиграть матч.</p>
+        </div>
+        <div class="tip-card visible" data-category="beginner">
+            <span class="tip-category">Новичок</span>
+            <span class="tip-number">#50</span>
+            <p>Не забывайте про аптечки и бонусы. Они могут стать решающим фактором в напряженном бою.</p>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 Brawl Tips. Неофициальный сайт. Не аффилирован с Supercell.</p>
+</footer>
+
+<script>
+    function filterTips(category) {
+        const cards = document.querySelectorAll('.tip-card');
+        const buttons = document.querySelectorAll('.filter-btn');
+        
+        // Обновляем кнопки
+        buttons.forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+
+        // Фильтруем карточки
+        cards.forEach(card => {
+            if (category === 'all' || card.getAttribute('data-category') === category) {
+                card.classList.add('visible');
+            } else {
+                card.classList.remove('visible');
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
